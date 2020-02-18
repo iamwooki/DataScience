@@ -4,7 +4,10 @@ from https://github.com/corazzon/inflearn-new-year-event-2020
 ### 0. 크롤링(Crawlling)
 > beautifulSoup4
 > requests
+> trange
+
 ### 1. 키워드 빈도수 계산
+> si-kit learn
 ```python
 from sklearn.feature_extraction.text import CountVectorizer
 ```
@@ -45,11 +48,50 @@ tf-idf(𝑑,𝑡)=tf(𝑑,𝑡)⋅idf(𝑡)
 tf(𝑑,𝑡) : term frequency. 특정한 단어의 빈도수
 idf(𝑡)  : inverse document frequency. 특정한 단어가 들어 있는 문서의 수에 반비례하는 수
 ```
-idf(𝑑,𝑡)=log𝑛 / 1+df(𝑡)
+idf(𝑑,𝑡)=log(𝑛 / 1+df(𝑡))
 ```
 𝑛  : 전체 문서의 수
 df(𝑡) : 단어  𝑡 를 가진 문서의 수 <br>
 참고 : [데이터사이언스스쿨](https://datascienceschool.net/view-notebook/3e7aadbf88ed4f0d87a76f9ddc925d69/)
 ### 3. 군집화(KMeans)
+```python
+from sklearn.cluster import KMeans
+```
+#### K-평균 군집화 방법
+은 가장 단순하고 빠른 군집화 방법의 하나이다. 다음과 같은 목적함수 값이 최소화될 때까지 군집의 중심위치와 각 데이터가 소속될 군집를 반복해서 찾는다. 이 값을 관성(inertia)이라 한다.
+```
+𝐽=∑_𝑘=1^𝐾 ∑_𝑖∈𝐶𝑘 𝑑(𝑥𝑖,𝜇𝑘)
+ ```
+이 식에서  𝐾 는 군집의 갯수이고  𝐶𝑘 는  𝑘 번째 군집에 속하는 데이터의 집합,  𝜇𝑘 는  𝑘 번째 군집의 중심위치(centroid),  𝑑 는  𝑥𝑖,𝜇𝑘  두 데이터 사이의 거리 혹은 비유사도(dissimilarity)로 정의한다. 만약 유클리드 거리를 사용한다면 다음과 같다.
+```
+𝑑(𝑥𝑖,𝜇𝑘)=||𝑥𝑖−𝜇𝑘||^2
+ ```
+위 식은 다음처럼 표현할 수도 있다.
+```
+𝐽=∑_𝑖=1^𝑁 min_𝜇_𝑗∈𝐶 (||𝑥𝑖−𝜇𝑗||^2)
+ ```
+세부 알고리즘은 다음과 같다.
+
+임의의 중심위치  𝜇𝑘(𝑘=1,…,𝐾) 를 고른다. 보통 데이터 표본 중에서  𝐾 개를 선택한다.
+모든 데이터  𝑥𝑖(𝑖=1,…,𝑁) 에서 각각의 중심위치  𝜇𝑘 까지의 거리를 계산한다.
+각 데이터에서 가장 가까운 중심위치를 선택하여 각 데이터가 속하는 군집을 정한다.
+각 군집에 대해 중심위치  𝜇𝑘 를 다시 계산한다.
+2 ~ 4를 반복한다.
+K-평균 군집화란 명칭은 각 군집의 중심위치를 구할 때 해당 군집에 속하는 데이터의 평균(mean)값을 사용하는데서 유래하였다. 만약 평균 대신 중앙값(median)을 사용하면 K-중앙값(K-Median) 군집화라 한다.
+
+scikit-learn의 cluster 서브패키지는 K-평균 군집화를 위한 KMeans 클래스를 제공한다. 다음과 같은 인수를 받을 수 있다.
+
+- n_clusters: 군집의 갯수
+- init: 초기화 방법. "random"이면 무작위, "k-means++"이면 K-평균++ 방법. 또는 각 데이터의 군집 라벨.
+- n_init: 초기 중심위치 시도 횟수. 디폴트는 10이고 10개의 무작위 중심위치 목록 중 가장 좋은 값을 선택한다.
+- max_iter: 최대 반복 횟수.
+- random_state: 시드값.
+
+#### 미니배치 K-평균 군집화
+K-평균 방법에서는 중심위치와 모든 데이터 사이의 거리를 계산해야 하기 때문에 데이터의 갯수가 많아지면 계산량도 늘어단다. 데이터의 수가 너무 많을 때는 미니배치 K-평균(Mini-batch) 군집화 방법을 사용하면 계산량을 줄일 수 있다. 미니배치 K-평균 군집화는 데이터를 미니배치 크기만큼 무작위로 분리하여 K-평균 군집화를 한다. 모든 데이터를 한꺼번에 썼을 때와 결과가 다를 수는 있지만 큰 차이가 없다.
+
+사이킷런의 cluster 서브패키지는 미니배치 K-평균 군집화를 위한 MiniBatchKMeans 클래스를 제공한다. 미니배치 크기 batch_size 인수를 추가로 받는다.
+<br>참고 : [데이터사이언스스쿨](https://datascienceschool.net/view-notebook/2205ad8f0c5947c08696e8927b466341/)
 
 ### 4. 워드클라우드
+from https://github.com/conda-forge/wordcloud-feedstock
