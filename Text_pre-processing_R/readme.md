@@ -72,3 +72,16 @@ summarise(데이터명, mean = mean(컬럼, na.rm=T), n=n())
 ## N2H4
 from https://github.com/forkonlp/N2H4
 - 네이버 뉴스 크롤링 수집도구
+
+## RmecabKo
+- 일본어 형태소 분석기 mecab 기반
+- C++로 작성
+- 일본어, 중국어도 사용 가능
+- 형태소 분석 함수를 제공
+- 띄어쓰기에 덜 민감
+
+## KoNLP
+- java로 작성된 한나눔 분석기 기반
+- NIADic() 등 자체 사전
+- 텍스트 분석을 위한 기능들 제공
+- 친절한 설명서
