@@ -68,3 +68,7 @@ summarise(데이터명, mean = mean(컬럼, na.rm=T), n=n())
 3.1 Each type of observational unit forms a table.
 3.2 각 테이블은 단 하나의 관측기준에 의해서 조직된 데이터를 저장한다.
 3.3 각 테이블에는 단일 유형의 데이터가 들어간다.
+
+## N2H4
+from https://github.com/forkonlp/N2H4
+- 네이버 뉴스 크롤링 수집도구
