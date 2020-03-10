@@ -1,6 +1,8 @@
 # Inflearn new year event 2020
 from https://github.com/corazzon/inflearn-new-year-event-2020
 
+doc : https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+
 ### 0. 크롤링(Crawlling)
 > beautifulSoup4
 > requests
